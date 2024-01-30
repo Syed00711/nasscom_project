@@ -24,5 +24,10 @@ public class ProductCategoryService {
 		return new ResponseEntity<List<ProductCategory>>(productCategories,HttpStatus.OK);
 	}
 	
+	public ResponseEntity<String> create(ProductCategory productCategory){
+		productCategoryRepository.save(productCategory);
+		return new ResponseEntity<String>("ENtity successfully created",HttpStatus.CREATED);
+	}
+	
 	
 }
