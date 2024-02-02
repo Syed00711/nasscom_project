@@ -8,7 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.microcare.nasscom_project.dto.ProductDTO;
 import com.microcare.nasscom_project.model.Product;
+import com.microcare.nasscom_project.repository.ProductCategoryRepository;
 import com.microcare.nasscom_project.repository.ProductRepository;
 
 import jakarta.transaction.Transactional;
@@ -19,6 +21,9 @@ public class ProductService {
 	
 	@Autowired
 	ProductRepository productRepository; 
+	
+	@Autowired
+	ProductCategoryRepository productCategoryRepository;
 	
 	public ResponseEntity<List<Product>> fetchAll(){
 		
@@ -41,6 +46,25 @@ public class ProductService {
 			return new ResponseEntity<Product>((Product)productRepository.findById(productId).get(),HttpStatus.OK);
 			
 		}
+	}
+	
+	public ResponseEntity<String> create( ProductDTO productdto ){
+		Product product =new Product();
+		product.setProductName(productdto.getProductName());
+		product.setListPrice(productdto.getListPrice());
+		product.setStandardCost(productdto.getStandardCost());
+		product.setDescription(productdto.getDescription());
+		
+		product.setProductCategory(productCategoryRepository.findById(productdto.getCategoryId()).get());
+		
+		
+		productRepository.save(product);
+		return new ResponseEntity<String>("Product Successfully created",HttpStatus.CREATED);
+	}
+	
+	public ResponseEntity<String> deleteProduct(Integer productId){
+		productRepository.deleteById(productId);
+		return new ResponseEntity<String>("Deleted Product ",HttpStatus.OK);
 	}
 
 }

@@ -5,8 +5,12 @@ import org.springframework.stereotype.Repository;
 
 import com.microcare.nasscom_project.model.ProductCategory;
 
+import jakarta.persistence.NamedNativeQuery;
+
 @Repository
 public interface ProductCategoryRepository  
 extends JpaRepository<ProductCategory,Integer>{
+	
+		ProductCategory findByCategoryName(String categoryName); 
 
 }

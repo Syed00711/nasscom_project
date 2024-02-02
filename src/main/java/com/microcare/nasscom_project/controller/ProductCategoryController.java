@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,12 @@ public class ProductCategoryController {
 	@PostMapping("/create")
 	public ResponseEntity<String> create(@RequestBody ProductCategory productCategory){
 		return productCategoryService.create(productCategory);
+	}
+	
+	@GetMapping("/getname/{categoryName}")
+	public ResponseEntity<ProductCategory> getByName(@PathVariable("categoryName") String categoryName){
+		System.out.println("NAME CONTROLLER:"+categoryName);
+		return productCategoryService.findByName(categoryName);
 	}
 	
 	
