@@ -1,5 +1,6 @@
 package com.microcare.nasscom_project.service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -65,6 +66,15 @@ public class ProductService {
 	public ResponseEntity<String> deleteProduct(Integer productId){
 		productRepository.deleteById(productId);
 		return new ResponseEntity<String>("Deleted Product ",HttpStatus.OK);
+	}
+	
+	
+	public ResponseEntity<Collection<Product>> getProducts(){
+		return new ResponseEntity<Collection<Product>>(productRepository.getAllProducts(),HttpStatus.OK);
+	}
+	
+	public ResponseEntity<Product> getNativeProducts(Integer p_id,Integer c_id){
+		return new ResponseEntity<Product>(productRepository.getByID(p_id,c_id),HttpStatus.OK);
 	}
 
 }

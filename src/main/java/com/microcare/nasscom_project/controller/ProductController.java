@@ -1,5 +1,6 @@
 package com.microcare.nasscom_project.controller;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.microcare.nasscom_project.dto.ProductDTO;
@@ -47,6 +49,17 @@ public class ProductController {
 	@DeleteMapping("/delete/{productId}")
 	public ResponseEntity<String> delete(@PathVariable("productId") Integer productId){
 		return productService.deleteProduct(productId);
+	}
+	
+	@GetMapping("/customproducts")
+	public ResponseEntity<Collection<Product>> getProducts(){
+		return productService.getProducts();
+	}
+	
+	@GetMapping("/nativeproducts")
+	public ResponseEntity<Product> getNativeProducts
+	(@RequestParam("p_id")Integer p_id,@RequestParam("c_id") Integer c_id){
+		return productService.getNativeProducts(p_id,c_id);
 	}
 
 }
